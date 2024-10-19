@@ -4,6 +4,7 @@ import { Link } from 'gatsby'
 
 import {
   columnPostContainer,
+  articlesContainer,
   articleLink
 } from './flex_column_article.module.css'
 
@@ -19,7 +20,7 @@ import {
 
 const FlexColumnArticles = ({ title, posts }) => {
   return ( 
-    <div>
+    <div className={articlesContainer}>
       <h1 className={heading}>{title}</h1>
       <div className={columnPostContainer}>
       {

@@ -4,12 +4,14 @@
     font-family: sans-serif;
 }
 .heading {
-  color: #2d7a67;
+  font-size: 1.5rem;
+  color: #4f4f4f;
 }
 .nav-links {
   display: flex;
   list-style: none;
   padding-left: 0;
+  margin: 1rem 0 2rem 0;
 }
 .nav-link-item {
   padding-right: 2rem;
@@ -17,21 +19,19 @@
 .nav-link-text {
   color: gray;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: none;
 }
 .nav-link-active{
   color: #2d7a67;
 }
-
 .site-title {
-  font-size: 2.5rem;
-  color: gray;
-  font-weight: 700;
-  margin: 3rem 0;
+  font-size: 2rem;
+  color: #4f4f4f;
+  font-weight: 500;
+  margin: 3rem 0 1rem 0;
 }
-
 .link {
   text-decoration: none;
-  color: gray;
+  color: #2d7a67;
 }
