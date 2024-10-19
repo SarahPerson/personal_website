@@ -12,7 +12,7 @@ const BlogPage = ({ data }) => {
     const recentBlogPosts = data.allMdx.nodes.slice(0,3)
     return (
         <Layout>
-          <FlexColumnArticles title="RecentlyUpdated" posts={recentBlogPosts}></FlexColumnArticles>
+          <FlexColumnArticles title="Recently Updated" posts={recentBlogPosts}></FlexColumnArticles>
           <ArticleSummary title="All Other Thoughts" posts={data.allMdx.nodes}></ArticleSummary>
         </Layout>
     )
@@ -21,7 +21,7 @@ const BlogPage = ({ data }) => {
 export default BlogPage
 
 export const query = graphql `{
-  allMdx(sort: {frontmatter: {last_updated: DESC}}) {
+  allMdx(sort: {frontmatter: {date: DESC}}) {
     nodes {
       frontmatter {
         date(formatString: "MMMM D, YYYY")
