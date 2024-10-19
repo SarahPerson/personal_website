@@ -33,7 +33,7 @@ const HighlightImage = styled.div`
 const IndexPage = ({ data }) => {
   const recentBlogPosts = data.allMdx.nodes.slice(0,3)
   return (
-    <Layout pageTitle="Hi There! I'm Sarah Person-Waibel">
+    <Layout pageTitle="Hi There, I'm Sarah!">
       <TextImageContainer>
         <FlexText>
           <p>I am a software developer, amateur analog photographer, endurance athlete, and lover of my cat Percy (oh and also my husband Mitch). I am currently working at Microsoft in Azure DNS where I support the Linux based authoritative serving plane. On this website, you can learn more about me and my professional experience, read through various thoughts I have explored, and see some of my various projects. 
