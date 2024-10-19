@@ -6,6 +6,7 @@ import {
     heading,
     navLinks,
     navLinkItem,
+    navLinkActive,
     navLinkText,
     siteTitle
 } from './layout.module.css'
@@ -26,17 +27,17 @@ const Layout = ({ pageTitle, children }) => {
             <nav>
                 <ul className={navLinks}>
                     <li className={navLinkItem}>
-                        <Link to='/' className={navLinkText}>
+                        <Link to='/' className={navLinkText} activeClassName={navLinkActive}>
                             Home
                         </Link>
                     </li>
                     <li className={navLinkItem}>
-                        <Link to='/about' className={navLinkText}>
+                        <Link to='/about' className={navLinkText} activeClassName={navLinkActive}>
                             About
                         </Link>
                     </li>
                     <li className={navLinkItem}>
-                        <Link to='/blog' className={navLinkText}>
+                        <Link to='/blog' className={navLinkText} activeClassName={navLinkActive}>
                             Blog
                         </Link>
                     </li>
