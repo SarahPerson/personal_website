@@ -1,5 +1,7 @@
 import * as React from 'react'
 import Layout from '../../components/layout'
+import FlexColumnArticles from '../../components/flex_column_article'
+import ArticleSummary from '../../components/article_summary'
 import Seo from '../../components/seo'
 import { Link, graphql } from 'gatsby'
 import {
@@ -7,37 +9,11 @@ import {
 } from './../../components/layout.module.css'
 
 const BlogPage = ({ data }) => {
+    const recentBlogPosts = data.allMdx.nodes.slice(0,3)
     return (
-        <Layout pageTitle="--Blog--">
-          <div>
-          <h1>Recently Updated Thoughts</h1>
-          <div className={columnPostContainer}>
-          {
-              data.allMdx.nodes.slice(0,3).map(node => (
-                <article key={node.id}>
-                  <h2>
-                    <Link to={`/blog/${node.frontmatter.slug}`}>{node.frontmatter.title}</Link>
-                  </h2>
-                  <p>Posted: {node.frontmatter.date}</p>
-                  <p>{node.excerpt}</p>
-                  <p>Last Updated: {node.frontmatter.last_updated}</p>
-                </article>
-              ))
-          }
-          </div>
-          </div>
-          <h1>All Other Thoughts</h1>
-          {
-              data.allMdx.nodes.slice(0,3).map(node => (
-                <article key={node.id}>
-                  <h2>
-                    <Link to={`/blog/${node.frontmatter.slug}`}>{node.frontmatter.title}</Link>
-                  </h2>
-                  <p>Posted: {node.frontmatter.date}</p>
-                </article>
-              ))
-          }
-
+        <Layout>
+          <FlexColumnArticles title="RecentlyUpdated" posts={recentBlogPosts}></FlexColumnArticles>
+          <ArticleSummary title="All Other Thoughts" posts={data.allMdx.nodes}></ArticleSummary>
         </Layout>
     )
 }
@@ -49,7 +25,7 @@ export const query = graphql `{
     nodes {
       frontmatter {
         date(formatString: "MMMM D, YYYY")
-        last_updated(formatString: "MMMM D, YYYY - h:mm a")
+        last_updated(formatString: "M/D/YY - h:mm a")
         slug
         title
       }

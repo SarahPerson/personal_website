@@ -1,0 +1,22 @@
+.column-post-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.column-post-container article {
+  flex: 1 1 calc(33.333% - 20px); /* 20px is the combined margin */
+  margin: 0 10px;
+}
+
+.column-post-container > *:first-child {
+  margin-left: 0; /* Remove left margin for the first item */
+}
+
+.column-post-container > *:last-child {
+  margin-right: 0; /* Remove right margin for the last item */
+}
+
+.article-link {
+  text-decoration: none;
+  color: gray;
+}
