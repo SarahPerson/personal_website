@@ -1,0 +1,30 @@
+.blogHeading {
+  font-size: 1.7rem;
+  color: #4f4f4f;
+  text-align: left;
+  margin-bottom: 0.3em;
+}
+
+.date {
+  font-style: italic;
+  color: #4f4f4f;
+  margin-top: 0;
+  margin-bottom: 1em;
+  display: block; /* if you want it on its own line */
+}
+
+.mdxContent{
+  color: #4f4f4f;
+}
+
+h1 { font-size: 1.4em; }
+h2 { font-size: 1.2em; }
+h3 { font-size: 1.1em; }
+h4 { font-size: 1em; }
+h5 { font-size: 1em; }
+h6 { font-size: 0.95em; }
+
+p {
+  margin-bottom: 1em;
+  line-height: 1.6;
+}

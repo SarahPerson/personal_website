@@ -1,31 +1,92 @@
 ---
-title: "Putting way too much effort into converting a mac background to windows" 
+title: "Putting Way Too Much Effort Into Converting a Dynamic Mac Wallpaper to Windows" 
 date: 2024-07-12
-last_updated: 2024-07-19 14:53
+last_updated: 2025-07-09 14:40
 slug: "mac-to-windows-background"
 ---
 
-# Making automated changing backgrounds on Windows
-If you know me, you likely have recieved a Ted Talk about the lore and theories around the Legend of Zelda series - research courtesy of the bible of Zelda "Hyrule Historia" and many years of religiously following ZeldaDungeon.net and participating in their forums. All of that to say I am a wee bit of a Zelda fan. And, like, a **real** Zelda fan. Not a new wave "I over-built this complex machine to solve this shrine puzzle in the exact same way I solved every other puzzle in this game but wow this game is amazing" Tears of the Kingdom fan. (Am I salty? Yes.) So when I stumbled upon this amazing artists computer background of Outset Island from LoZ The Wind Waker, I knew I must use it. And I am not someone who changes their background often. My last update was from a Wolf Link background to the official backgrounds from Nindendo for the release of Breath of the Wild. So this was a big deal.
+# Making Automated Changing Backgrounds on Windows
+If you know me, you likely have received a Ted Talk about the lore and theories around the Legend of Zelda series - research courtesy of the bible of Zelda "Hyrule Historia" and many years of religiously following ZeldaDungeon.net and participating in their forums. All of that to say I am a wee bit of a Zelda fan. And, like, a **real** Zelda fan. Not a new wave "I over-built this complex machine to solve this shrine puzzle in the exact same way I solved every other puzzle in this game but wow this game is amazing" Tears of the Kingdom fan. (Am I salty? Yes.) So when I stumbled upon this amazing artists computer background of Outset Island from LoZ The Wind Waker, I knew I must use it. And I am not someone who changes their background often. My last update was from a Wolf Link background to the official backgrounds from Nintendo for the release of Breath of the Wild. So this was a big deal.
 
 This background image was created by Matt Vince and is available on his [website](https://www.mattvince.com/product/zelda-windwaker-dynamic-wallpaper-mac-osx/). Please please PLEASE go check out his work! He has amazing other Zelda themed backgrounds and poster art that is worth your time. The Outset Island background was designed as a Mac Dynamic Wallpaper and has 4 images that change with the time of day. 
 
-Now, I am not a Mac user, but the images were still available for download so I could have picked my favorite and been done with it. But I loved the idea of the passage of time on my PC so I thought "hey, this shouldn't be too hard to do myself, right?". And thus started an adventure of lots of tangents and way to much effort for such a small thing. Sometimes however it is the smallest tasks that you learn the most from. 
+Now, I am not a Mac user, but the images were still available for download so I could have picked my favorite and been done with it. But I loved the idea of the passage of time on my PC so I thought "Hey, this shouldn't be too hard to do myself, right?". And thus started an adventure of lots of tangents and way to much effort for such a small thing. Sometimes, however, it is the smallest tasks that you learn the most from. Or at least you learn some obscure information about Windows and get a little better with scripting languages
 
-On Windows, there are many different third party softwares available that I could have purchased to change automate my background changing. But I also thought there must be a way to do this myself. The following details the various attempts I made to accomplish this goal without outside software and the many lessons I learned along the way. 
+On Windows, there are many different third party softwares available that I could have purchased to change automate my background changing. But I also wanted to explore how I might be able to accomplish this with the basic tools available on Windows. The following details my various attempts to accomplish this goal without outside software and the many lessons I learned along the way. 
 
 ## Using Windows Task Scheduler
-My first thought to approach this problem was to schedule a task that would change the background of my machine. In Linux world, this can be done simple using CRON. CRON is a super powerful tool that allows you to schedule practically any task you want to run on your computer. You can specify tasks to run at intervals or at specific times. Windows has something *similar* in task scheduler. You can schedule tasks to run programs or powershell scripts. You set a trigger for that task, 
-* Simplest approach to make a task that changes the background at fixed times of the day 
-    * 4 tasks each
-* Use BGi to create the background file that would be called as the action of the tasks Scheduler
-* Problems with this approach
-    * task scheduler isn't intuitive for what it should do when the pc is asleep
-    * you can schedule a task to run while asleep but it isn't always consistent, at least how I configured it
-    * you can have the task run the next time the pc is on but that creates weird race conditions when say you don't use your computer for over 12 hours and the morning noon and evening task all run at the same time. More often than not my background would change multiple times in a second and still end up with the wrong one 
-    * This doesn't let me set the lock screen! Backgrounds are nice and all, but how often do you actually see your background? I way more often look at my lock screen and ideally need this to match my background image
+My first thought to approach this problem was to schedule a task that would change the background of my machine. In Linux world, this can be done simple using CRON. CRON is a super powerful tool that allows you to schedule practically any task you want to run on your computer. You can specify tasks to run at intervals or at specific times. Windows has something *similar* in task scheduler. You can schedule tasks to run programs or powershell scripts. You set a trigger for that task, such as a specific time of day or an event like a user logging on to the machine, and then the task will be executed. 
+
+This was, in my mind, the simplest approach for scheduling changing backgrounds. I could simply create 4 tasks in the task scheduler that would change the background at fixed times throughout the day. But what exactly would be executed by the task to change the background? 
+
+To actually modify the background setting on my machine, I used BGInfo. BGInfo is a program used to automatically display information about a given machine on the computers background. This is often used to display info like computer name, ip address, default gateway, operating system, etc... and is extremely useful for shared computers or workspaces that you often need to look up system configuration information. BGInfo can be run at startup, or at scheduled intervals using the task scheduler to regularly keep this information up to date. In my case, I don't care about displaying information about my machine on the desktop. But what this gives me is a portable way to store my 4 different background files and a way to apply the background to my computers settings through task scheduler.
+
+I started by creating the BGInfo file of my background image. In BGInfo, I deleted all of the system information from the configuration, selected the image to be used for the background, and saved the file. This creates a .bgi file that can be passed into BGInfo as a commandline argument.
+ 
+``` 
+ C:\Users\sarah\Documents\BGInfo\Bginfo64.exe C:\Users\sarah\Pictures\Backgrounds\outset_bgi\outset_night.bgi /timer:0 /silent
+```
+ The timer is set to zero which means that BGInfo will apply the background immediately with no countdown timer. Silent will apply the background without displaying any UI.
+
+ ### My Problems With BGInfo
+ This was a *fine* approach - but I wouldn't say my implementation was accurate. During my exploration I found that task scheduler isn't intuitive for what it should do when the pc is asleep, but it wasn't consistent (at least how I configured it). The task can be configured to run the next time the PC is on. This didn't exactly solve the issue either as it created a weird race condition when, say, you don't use your computer for over 12 hours and the morning, noon, and evening task run at the same time. More often than not, my background would change multiple times in a second and still end up with the wrong one at the end. You can schedule a task to run when the user isn't logged in which may have solved some of these consistency issues - but current Sarah writing this months after she did this exploration can't remember the problems she ran into with this approach. 
+
+ I am sure there is a correct way to configure these tasks to work as expected and if I invested the time to learn better how tasks scheduler worked I am sure it would be *fine*. But even then, I realized that I had a fatal flaw in how I was thinking about this problem... I was focusing on changing the background image, but how often do you really look at your desktop? I much more often look at my lock screen or screen saver image and realized I absolutely need this to change with the passing of daylight as well! BGInfo simply wasn't the tool to accomplish that goal.
 
 ## Create a Powershell Script 
+The key to solving my race condition problem was to schedule a *single* task in the task scheduler. The task would check what the time is and update the background accordingly. This task can be run at regular intervals to ensure the background is kept up to date without fear of interfering with any other tasks. I chose to use Powershell script to do the real "work" and as the actual "task" that would be scheduled. 
+
+### Using User32.dll to Update the Users Background
+A lot of the code I used in the script was originally written by Jose Espitia in [this post.](https://www.joseespitia.com/2017/09/15/set-wallpaper-powershell-function/) In summary, you can call windows dlls from powershell. In this specific case, we are using the User32.dll to update the background settings. Check out his post for more of the nitty gritty details. The function I used to update the background image can be seen below. 
+
+``` powershell
+Function Set-WallPaper($Image) {
+<#
+ 
+    .SYNOPSIS
+    Applies a specified wallpaper to the current user's desktop
+    
+    .PARAMETER Image
+    Provide the exact path to the image
+  
+    .EXAMPLE
+    Set-WallPaper -Image "C:\Wallpaper\Default.jpg"
+  
+#>
+
+Add-Type -TypeDefinition @" 
+using System; 
+using System.Runtime.InteropServices;
+  
+public class Params
+{ 
+    [DllImport("User32.dll",CharSet=CharSet.Unicode)] 
+    public static extern int SystemParametersInfo (Int32 uAction, 
+                                                   Int32 uParam, 
+                                                   String lpvParam, 
+                                                   Int32 fuWinIni);
+}
+"@ 
+  
+    $SPI_SETDESKWALLPAPER = 0x0014
+    $UpdateIniFile = 0x01
+    $SendChangeEvent = 0x02
+  
+    $fWinIni = $UpdateIniFile -bor $SendChangeEvent
+  
+    $ret = [Params]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $Image, $fWinIni)
+ 
+}
+```
+
+### Updating the Lock Screen Image
+Now, getting the lock screen updated was a little less straight forward. The Google rabbit hole lead me down a number of weird hacky solutions and workarounds to this problem. Some of those I remember now, months later... I tried finding the image location of the "Windows Spotlight" image, then copy your image in its place or creating a link to a different directory then copying that in  the place of the folder "Windows Spotlight" used. The key problem with these solutions is that windows reaaaaally doesn't want you messing with spotlight. Not only are the permissions finicky (for someone who is better with Linux permissions), but every time you restart your computer, Windows put all of the Spotlight settings back to what it was expecting. 
+
+I finally stumbled upon a forum post that talked about a Windows Registry key that controlled the lock screen background - PersonalizationCSP. On my own computer, it took me quite a bit of investigation to find the exact registry key path, because it didn't exist yet in my registry. It seems PersonalizationCSP is used to control backgrounds, logos, lock screens, etc, at an enterprise scale. This likely is why it didn't already exist on  my machine, as I am using Windows home edition. Simply creating this registry key manually allowed me to set the lock screen, despite the [official Windows documentation](https://learn.microsoft.com/en-us/windows/client-management/mdm/personalization-csp) indicating it is only supported on Windows Enterprise or Education editions. 
+
+
+
+
 * Script would call a windows dll to update the background 
 * It also exposed a way to update the lock screen image by setting some register values. Register values compared to environment variables in Linux
 * This was great, easy to read, easy to understand, and could be scheduled by Task Scheduler
@@ -35,7 +96,7 @@ My first thought to approach this problem was to schedule a task that would chan
 
 ## Calling Powershell Script from Windows Bat file
 * Call the Powershell script in background mode 
-* Sort of helped except the window still popped up, only now it would disapear when done
+* Sort of helped except the window still popped up, only now it would disappear when done
 * maybe there was a way to get this to work but from my research as we were calling PWSH explicitly from Task Scheduler it was always going to flash a PWSH terminal to execute the script..
 
 ## Using bat file to Update Settings and VBS to Orchestrate
