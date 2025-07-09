@@ -7,6 +7,10 @@ import { graphql } from 'gatsby'
 import FlexColumnArticles from "../components/flex_column_article"
 import styled from 'styled-components';
 
+import {
+  heading,
+} from '../components/layout.module.css'
+
 const TextImageContainer = styled.div`
   display: flex;
   align-items: stretch;
@@ -33,13 +37,15 @@ const HighlightImage = styled.div`
 const IndexPage = ({ data }) => {
   const recentBlogPosts = data.allMdx.nodes.slice(0,3)
   return (
-    <Layout pageTitle="Hi There, I'm Sarah!">
+    <Layout pageTitle="">
       <TextImageContainer>
         <FlexText>
-          <p>I am a software developer, amateur analog photographer, endurance athlete, and lover of my cat Percy (oh and also my husband Mitch). I am currently working at Microsoft in Azure DNS where I support the Linux based authoritative serving plane. On this website, you can learn more about me and my professional experience, read through various thoughts I have explored, and see some of my various projects. 
+          <h1>Hi! I am Sarah Person-Waibel</h1>
+          <p>My friends call me SP-Dubs... or maybe I just wish they did? </p>
+          <p>I am a software developer, amateur analog photographer, endurance athlete, and lover of my cat Percy and puppy Otso (oh and also my husband Mitch). I am currently working at Microsoft in Azure DNS where I support the Recursive Protocols Team. On this website, you can learn more about me and my professional experience, read through various thoughts I have explored, and see some of my various projects. 
           <br></br> 
           <br></br> 
-          This website is a work in progress - it likely always be, but right now especially. I hope to carve out this little space on the internet for myself with the goal that I create and contribute more to the ether instead of consume, consume, <b>consume</b>. If you are interested to see my journey, I hope you check back in here from time to time! </p>
+          This website is a work in progress - it likely always be, but right now especially. I hope to carve out this little space on the internet for myself with the goal that I create and contribute more to the ether instead of consume, consume, <b>consume</b>. I want to explore the idea of learning in public, as I don't think we se enough of peoples progress and failures. As such, a lot of the posts here are may be updated as time goes on, just like our knowledge and experience grows over time. If you are interested to see my journey, I hope you check back in here from time to time! </p>
         </FlexText>
         <HighlightImage>
           <StaticImage src="../images/sarah_tree_hugger.jpeg" alt="Picture of Sarah Person-Waibel" /> 
@@ -57,7 +63,7 @@ export const query = graphql `{
     nodes {
       frontmatter {
         date(formatString: "MMMM D, YYYY")
-        last_updated(formatString: "M/D/YY - h:mm a")
+        last_updated(formatString: "MMMM D, YYYY")
         slug
         title
       }
