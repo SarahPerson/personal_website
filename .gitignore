@@ -1,3 +1,7 @@
 node_modules/
 .cache/
 public
+
+# Ignore image download metadata to prevent issues 
+# alternating between Windows and WSL 
+*:Zone.Identifier
