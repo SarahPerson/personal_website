@@ -5,7 +5,8 @@
 .column-post-container {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 0 0 0;
+  gap: 20px;
+  justify-content: center;
 }
 
 .column-post-container article {
@@ -13,16 +14,43 @@
   margin: 0 10px;
 }
 
-.column-post-container > *:first-child {
-  margin-left: 0; /* Remove left margin for the first item */
-}
-
-.column-post-container > *:last-child {
-  margin-right: 0; /* Remove right margin for the last item */
-}
-
-.article-link {
+.articleCard {
+  display: block;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+  padding: 1.5em;
   text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s, transform 0.2s, border 0.2s;
+  border: 1px solid #e0e0e0;
+  min-width: 100px;
+  max-width: 200px;
+  flex: 1 1 300px;
+}
+
+.articleCard:hover {
+  box-shadow: 0 6px 24px rgba(44, 62, 80, 0.18);
+  border: 1.5px solid #2d7a67;
+  transform: translateY(-4px) scale(1.02);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.articleTitle {
+  margin-top: 0;
+  margin-bottom: 0.5em;
   color: #2d7a67;
-  font-size: 1.5rem;
+}
+
+.articleDate,
+.articleUpdated {
+  font-size: 0.95em;
+  color: #888;
+  margin: 0.2em 0;
+}
+
+.articleExcerpt {
+  color: #444;
+  margin: 0.7em 0 0.7em 0;
 }

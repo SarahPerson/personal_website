@@ -1,5 +1,43 @@
-.article-link {
+.articleLink {
   text-decoration: none;
-  color: #2d7a67;
-  font-size: 1.5rem;
+  color: #4f4f4f;
+  font-size: 1.2rem;
+}
+
+.articleDescriptionRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+}
+
+.articleTitle {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.articleLine {
+  flex: 1;
+  height: 1px;
+  background: #e0e0e0;
+  color: #888;
+  margin: 0 1em;
+  min-width: 80px;
+}
+
+.articleDate {
+  color: #888;
+  white-space: nowrap;
+}
+
+.articleDescriptionRow:hover .articleLink,
+.articleDescriptionRow:hover .articleDate,
+.articleDescriptionRow:hover .articleLine {
+  text-decoration: none !important;
+  color: #2d7a67;           /* Change text color for link and date */
+  transition: 0.25s;
+  font-size: 1.25rem;
+}
+.articleDescriptionRow:hover .articleLine {
+  background: #2d7a67;           /* Change dividing line color */
+  transition: 0.25s;
 }

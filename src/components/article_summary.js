@@ -3,7 +3,10 @@ import * as React from "react"
 import { Link } from 'gatsby'
 
 import {
-  articleLink
+  articleLink,
+  articleDescriptionRow,
+  articleDate,
+  articleLine
 } from './article_summary.module.css'
 
 import {
@@ -17,12 +20,13 @@ const ArticleSummary = ({ title, posts }) => {
       <div>
       {
           posts.map(node => (
-            <article key={node.id}>
-              <h2>
+            <div key={node.id} className={articleDescriptionRow}>
+              <span>
                 <Link to={`/blog/${node.frontmatter.slug}`} className={articleLink}>{node.frontmatter.title}</Link>
-              </h2>
-              <p>{node.frontmatter.date}</p>
-            </article>
+              </span>
+              <span className={articleLine}></span>
+              <span className={articleDate}>{node.frontmatter.date}</span>
+            </div>
           ))
       }
       </div>
