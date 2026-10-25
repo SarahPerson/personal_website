@@ -6,7 +6,7 @@ import Seo from '../components/seo'
 const projects = [
     {
         title: 'PaperLab',
-        description: 'A lined paper and notebook generator.',
+        description: 'Printable paper, your way: a customizable generator for notebook pages and more.',
         url: 'https://paperlab.sarahperson.com',
         image: null,
     },
@@ -41,5 +41,5 @@ const ProjectsPage = () => {
 export default ProjectsPage
 
 export const Head = () => (
-    <Seo title="Projects" description="Side projects by Sarah Person-Waibel, including PaperLab, a lined paper and notebook generator." />
+    <Seo title="Projects" description="Side projects by Sarah Person-Waibel, including PaperLab, a customizable printable paper generator." />
 )
