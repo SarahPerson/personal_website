@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 
 const footerContainer = {
   textAlign: 'center',
@@ -28,6 +29,10 @@ const Footer = () => {
   return (
     <footer style={footerContainer}>
       <p>&copy; {new Date().getFullYear()} Sarah Person-Waibel</p>
+      <div style={separatorStyle}></div>
+      <p>
+        <Link to="/projects" style={footerLink}>Projects</Link>
+      </p>
       <div style={separatorStyle}></div>
       <p>
         <a href="mailto:sarah@sarahperson.com" style={footerLink}>Email Me</a>
