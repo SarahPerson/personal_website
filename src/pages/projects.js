@@ -6,7 +6,7 @@ import Seo from '../components/seo'
 const projects = [
     {
         title: 'PaperLab',
-        description: 'Printable paper, your way: a customizable generator for notebook pages and more.',
+        description: 'Generate customized paper for printing, including dotted and lined paper as well as weekly planner spreads.',
         url: 'https://paperlab.sarahperson.com',
         image: null,
     },
